@@ -1,6 +1,6 @@
 require './lib/dock.rb'
 
-describe 'Dock' do 
+describe Dock do
 
   before(:each) do
     @dock = Dock.new
