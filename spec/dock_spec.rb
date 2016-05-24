@@ -17,12 +17,17 @@ describe Dock do
 	end
 
 	it 'returns a bike and checks if it works' do
-		expect(@dock.release_bike.class).to eq Bike
-		expect(@dock.release_bike.working?).to eq true
+		testBike = @dock.release_bike
+		expect(testBike.class).to eq Bike
+		expect(testBike.working?).to eq true
 	end
 
 	it '#docked_bike returns instance variable @docked_bike' do
 		expect(@dock.docked_bike.class).to eq Bike
 	end
-  
+
+	it '#release_bike raise an error if dock is empty' do
+		expect{2.times{@dock.release_bike}}.to raise_error
+	end
+
 end
