@@ -7,13 +7,23 @@ describe DockingStation do
 		expect(bike.working?).to eq true
 	end
 	it { is_expected.to respond_to(:dock).with(1).argument }
-	it { is_expected.to respond_to(:docked)}
+	it { is_expected.to respond_to(:docked?)}
 	it "returns true if bike is docked" do
 		bike = subject.release_bike
 		subject.dock(bike)
-		expect(subject.docked).to eq true
+		expect(subject.docked?).to eq true
 	end
-	it "returns an error if no bikes are left." do
-		expect {subject.release_bike}.to raise_error("No bikes available.")
-	end
+
+  context 'when no bike exists' do
+      d = DockingStation.new
+      d.release_bike
+
+    it "#release_bike returns an error." do
+      expect {d.release_bike}.to raise_error("No bikes available.")
+    end
+
+    it "#docked_bike is empty ." do
+      expect(d.docked_bike).to be_nil
+    end
+  end
 end
