@@ -22,8 +22,13 @@ describe DockingStation do
   end
 
   it 'should not give out infinite bikes' do
-    #subject.release_bike
-    expect { subject.release_bike }.to raise_error
+    expect { subject.release_bike }.to raise_error("Bike not available")
+  end
+
+  it 'should not accept bike if full' do
+    bike = Bike.new
+    subject.dock(bike)
+    expect { subject.dock(Bike.new) }.to raise_error("Dock is full")
   end
 
   it 'should return bike if one is docked' do
@@ -33,5 +38,3 @@ describe DockingStation do
   end
 
 end
-
-
