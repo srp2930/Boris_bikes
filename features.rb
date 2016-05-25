@@ -1,5 +1,5 @@
 require './lib/docking_station.rb'
 require './lib/bike.rb'
-dock = DockingStation.new
-bike = Bike.new
-p dock.dock(bike)
+d = DockingStation.new
+20.times{d.}
+p d.docked_bikes.size
