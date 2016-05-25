@@ -1,4 +1,0 @@
-Error type: NameError
-Error path: /Users/matt/.rvm/rubies/ruby-2.3.0/bin/irb:11:in `<main>'
-Line Number: 1
-
