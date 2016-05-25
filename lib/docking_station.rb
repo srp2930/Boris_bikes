@@ -14,7 +14,7 @@ class DockingStation
 		@docked_bike = bike
 	end
 	
-	def docked
+	def docked?
 		if @docked_bike != nil then return true
 		else return false
 		end	
