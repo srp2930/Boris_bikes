@@ -2,15 +2,12 @@ require 'docking_station'
 
 describe DockingStation do
 	it {is_expected.to respond_to :release_bike}
-	it "returns bike & bike is working" do
-		bike = subject.release_bike
-		expect(bike.working?).to eq true
-	end
+	
 	it { is_expected.to respond_to(:dock).with(1).argument }
 	it { is_expected.to respond_to(:has_bikes?)}
 
 	it "#has_bikes? returns true if more than 0 bikes are docked" do
-    subject.dock(Bike.new)
+    subject.dock([Bike.new])
     expect(subject.has_bikes?).to eq true
 	end
 
@@ -22,7 +19,7 @@ describe DockingStation do
     expect{subject.dock([])}.to raise_error('No bikes in the input array')
   end
 
-  context 'when no bike is docked' do
+  context 'when dock is empty' do
     before(:each) {@d = DockingStation.new}
 
     it "#release_bike returns an error." do
@@ -36,7 +33,6 @@ describe DockingStation do
     it "#dock accepts an array of bikes" do
       expect{@d.dock([Bike.new, Bike.new])}.not_to raise_error(Exception) 
     end 
-
   end
 
   context 'when dock is full' do
@@ -45,6 +41,19 @@ describe DockingStation do
     it '#dock raises an error' do
       expect {d.dock([Bike.new])}.to raise_error("Station full.")
     end
+  end
+
+  context 'when dock has at least 1 bike' do
+    before(:each) do 
+      @d = DockingStation.new    
+      @d.dock([Bike.new]) end
+    it '#release_bike returns a bike object' do
+      expect(@d.release_bike.class).to eq(Bike)
+    end
+    
+    it "#release_bike returns a working bike" do
+		  expect(@d.release_bike.working?).to eq true
+	  end
   end
 
   context 'when new dock is created' do

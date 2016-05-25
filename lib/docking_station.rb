@@ -13,10 +13,9 @@ class DockingStation
 		if @docked_bikes == []
 			raise "No bikes available."
 		else 
-      released_bike = @docked_bikes
-      @docked_bikes = nil
+      released_bike = @docked_bikes.pop
       @full = false
-      released_bike 
+      released_bike
 		end
 	end
 	
@@ -26,7 +25,7 @@ class DockingStation
     elsif bikes == []
       raise "No bikes in the input array"
     elsif (@docked_bikes.length + bikes.length) <= @capacity 
-       @docked_bikes << bikes.flatten
+       (@docked_bikes << bikes).flatten!
        @full = true if @docked_bikes.length == @capacity
     else   
       raise 'Not enough capacity in dock to accommodate bikes in array'
