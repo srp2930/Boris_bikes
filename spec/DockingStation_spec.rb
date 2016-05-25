@@ -7,18 +7,18 @@ describe DockingStation do
 
   it { is_expected.to respond_to(:release_bike) }
 
-  it { is_expected.to respond_to(:bike) }
+  it { is_expected.to respond_to(:bikes) }
 
   it { is_expected.to respond_to(:dock).with(1).argument }
 
   it 'returns empty if no bike has been docked' do
-    expect(subject.bike).to eq([])
+    expect(subject.bikes).to eq([])
   end
 
   it 'returns the bike if bike has been docked' do
     bike = Bike.new
     subject.dock(bike)
-    expect(subject.bike).to eq([bike])
+    expect(subject.bikes).to eq([bike])
   end
 
   it 'should not give out infinite bikes' do
@@ -26,8 +26,7 @@ describe DockingStation do
   end
 
   it 'should not accept bike if full' do
-    bike = Bike.new
-    subject.dock(bike)
+    20.times { subject.dock(Bike.new) }
     expect { subject.dock(Bike.new) }.to raise_error("Dock is full")
   end
 
