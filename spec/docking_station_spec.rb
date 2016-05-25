@@ -26,4 +26,10 @@ describe DockingStation do
       expect(d.docked_bike).to be_nil
     end
   end
+
+  context 'when dock is full' do
+    it '#dock raises an error' do
+      expect {subject.dock(Bike.new)}.to raise_error("Station full.")
+    end
+  end
 end
