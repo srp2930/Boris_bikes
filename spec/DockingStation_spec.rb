@@ -3,13 +3,24 @@ require 'bike'
 
 describe DockingStation do
 
-  it { should be_instance_of(DockingStation)}
+  it { should be_instance_of(DockingStation) }
 
   it { is_expected.to respond_to(:release_bike) }
 
   it { is_expected.to respond_to(:bikes) }
 
   it { is_expected.to respond_to(:dock).with(1).argument }
+
+  describe 'initialization' do
+    it 'has default capacity when no argument is given' do
+      expect(subject.capacity).to eq DockingStation::DEFAULT_CAPACITY
+    end
+
+    it 'has capacity for 22 bikes when instantiated with 22' do
+      docking_station = DockingStation.new(22)
+      expect(docking_station.capacity).to eq 22
+    end
+  end
 
   describe '#bikes' do
     it 'returns empty if no bike has been docked' do
@@ -25,7 +36,7 @@ describe DockingStation do
     end
 
     it 'should not accept bike if full' do
-      DockingStation::DEFAULT_CAPACITY.times { subject.dock(Bike.new) }
+      subject.capacity.times { subject.dock(Bike.new) }
       expect { subject.dock(Bike.new) }.to raise_error("Dock is full")
     end
   end
