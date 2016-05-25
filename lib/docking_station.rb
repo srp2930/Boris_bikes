@@ -5,6 +5,7 @@ class DockingStation
 
   def initialize
     @docked_bike = Bike.new
+    @full = true
   end
 
 	def release_bike
@@ -13,12 +14,13 @@ class DockingStation
 		else 
       released_bike = @docked_bike
       @docked_bike = nil
+      @full = false
       released_bike 
 		end
 	end
 	
 	def dock(bike)
-		@docked_bike = bike
+    @full ? (raise "Station full.") : (@docked_bike = bike ; @full = false)
 	end
 	
 	def docked?
