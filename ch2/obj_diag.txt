@@ -1,4 +1,0 @@
-docking station --> release_bike --> a bike
-bike --> release_from_docking_station --> a bike
-bike --> usable? --> true/false
-user --> see_bike_is_good? --> true/false
