@@ -1,6 +1,22 @@
 require 'docking_station'
 
 describe DockingStation do
+
+  describe 'Initialization' do
+
+    it 'responds to ::new with either 1 or 0 arguments' do
+      expect(DockingStation).to respond_to(:new).with(1).argument
+      expect(DockingStation).to respond_to(:new).with(0).argument
+    end
+
+    it 'sets capacity to default if no argument given' do
+
+    expect(subject.capacity).to eq DockingStation::DEFAULT_CAPACITY
+    end
+
+
+  end
+
   context 'In any context' do
     it {is_expected.to respond_to :release_bike}
 
@@ -74,5 +90,6 @@ describe DockingStation do
       it '#docked_bikes contains empty array' do
         expect(d.docked_bikes).to eq([])
       end
+
   end
 end
