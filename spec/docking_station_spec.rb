@@ -59,24 +59,24 @@ describe DockingStation do
 
   context 'When dock is full' do
     d = DockingStation.new
-    20.times{d.dock([double(:bike)])}
+    20.times{d.dock(Bike.new)}
 
     it '#dock raises an error' do
-      expect {d.dock([double(:bike)])}.to raise_error("Station full.")
+      expect {d.dock(double(:bike))}.to raise_error("Station full.")
     end
   end
 
   context 'When dock has at least 1 bike' do
     before(:each) do
       @d = DockingStation.new
-      @d.dock([double(:bike)]) end
+      @d.dock(Bike.new) end
 
     it '#has_bikes? returns true' do
       expect(@d.has_bikes?).to eq(true)
     end
 
     it '#release_bike returns an object' do
-      expect(@d.release_bike.class).to eq(Object)
+      expect(@d.release_bike.class).to eq(Bike)
     end
 
     it '#release_bike returns a working bike' do
@@ -93,12 +93,12 @@ describe DockingStation do
   end
 
   context 'When dock holds a broken bike' do
-    b = double(:bike)
-    b.broken = true
-    d = DockingStation.new
-    d.dock(b)
 
+    let (:bike) { double :bike }
     it 'should not release a broken bike' do
+      d = DockingStation.new
+      d.dock(bike)
+      allow(bike).to receive(:broken).and_return(true)
       expect{d.release_bike}.to raise_error('Bike is broken!')
     end
   end
