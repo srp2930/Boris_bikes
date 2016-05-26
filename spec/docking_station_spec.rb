@@ -29,7 +29,7 @@ describe DockingStation do
     end
 
     it '#dock raises error if input array of bikes exceeds capacity' do
-        expect{subject.dock(Array.new(DockingStation::DEFAULT_CAPACITY + 1, Bike.new))}.to raise_error('Not enough capacity in dock to accommodate bikes in array')
+        expect{subject.dock(Array.new(DockingStation::DEFAULT_CAPACITY + 1, double(:bike)))}.to raise_error('Not enough capacity in dock to accommodate bikes in array')
       end
   end
 
@@ -49,34 +49,34 @@ describe DockingStation do
     end
 
     it '#dock accepts an array of bikes' do
-      expect{@d.dock([Bike.new, Bike.new])}.not_to raise_error(Exception)
+      expect{@d.dock([double(:bike), double(:bike)])}.not_to raise_error(Exception)
     end
 
     it '#dock accepts a bike object' do
-      expect{@d.dock(Bike.new)}.not_to raise_error(Exception)
+      expect{@d.dock(double(:bike))}.not_to raise_error(Exception)
     end
   end
 
   context 'When dock is full' do
     d = DockingStation.new
-    20.times{d.dock([Bike.new])}
+    20.times{d.dock([double(:bike)])}
 
     it '#dock raises an error' do
-      expect {d.dock([Bike.new])}.to raise_error("Station full.")
+      expect {d.dock([double(:bike)])}.to raise_error("Station full.")
     end
   end
 
   context 'When dock has at least 1 bike' do
     before(:each) do
       @d = DockingStation.new
-      @d.dock([Bike.new]) end
+      @d.dock([double(:bike)]) end
 
     it '#has_bikes? returns true' do
       expect(@d.has_bikes?).to eq(true)
     end
 
-    it '#release_bike returns a bike object' do
-      expect(@d.release_bike.class).to eq(Bike)
+    it '#release_bike returns an object' do
+      expect(@d.release_bike.class).to eq(Object)
     end
 
     it '#release_bike returns a working bike' do
@@ -93,11 +93,11 @@ describe DockingStation do
   end
 
   context 'When dock holds a broken bike' do
-    b = Bike.new
+    b = double(:bike)
     b.broken = true
-    d = DockingStation.new 
+    d = DockingStation.new
     d.dock(b)
-      
+
     it 'should not release a broken bike' do
       expect{d.release_bike}.to raise_error('Bike is broken!')
     end
