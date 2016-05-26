@@ -1,17 +1,5 @@
-require './lib/bike.rb'
+require 'bike'
 
 describe Bike do
-  
-  before(:each) do
-      @bike = Bike.new
-  end
-
-  it 'responds to #new' do
-    expect(Bike).to respond_to(:new)
-  end
-
-  it 'responds to #working?' do
-    expect(@bike).to respond_to(:working?)
-  end
-
+	it {is_expected.to respond_to :working?}
 end
