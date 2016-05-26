@@ -3,7 +3,7 @@ require 'docking_station'
 describe DockingStation do
   context 'In any context' do
     it {is_expected.to respond_to :release_bike}
-    
+
     it { is_expected.to respond_to(:dock).with(1).argument }
 
     it { is_expected.to respond_to(:has_bikes?)}
@@ -12,8 +12,8 @@ describe DockingStation do
       expect{subject.dock([])}.to raise_error('No bikes in the input array')
     end
 
-    it '#dock raises error if input array of bikes exceed capacity' do
-        expect{subject.dock(Array.new(subject.capacity + 1, Bike.new))}.to raise_error('Not enough capacity in dock to accommodate bikes in array')
+    it '#dock raises error if input array of bikes exceeds capacity' do
+        expect{subject.dock(Array.new(DockingStation::DEFAULT_CAPACITY + 1, Bike.new))}.to raise_error('Not enough capacity in dock to accommodate bikes in array')
       end
   end
 
@@ -31,13 +31,13 @@ describe DockingStation do
     it '#docked_bikes returns an empty array.' do
       expect(@d.docked_bikes).to eq([])
     end
-     
+
     it '#dock accepts an array of bikes' do
-      expect{@d.dock([Bike.new, Bike.new])}.not_to raise_error(Exception) 
-    end 
-    
+      expect{@d.dock([Bike.new, Bike.new])}.not_to raise_error(Exception)
+    end
+
     it '#dock accepts a bike object' do
-      expect{@d.dock(Bike.new)}.not_to raise_error(Exception) 
+      expect{@d.dock(Bike.new)}.not_to raise_error(Exception)
     end
   end
 
@@ -51,8 +51,8 @@ describe DockingStation do
   end
 
   context 'When dock has at least 1 bike' do
-    before(:each) do 
-      @d = DockingStation.new    
+    before(:each) do
+      @d = DockingStation.new
       @d.dock([Bike.new]) end
 
     it '#has_bikes? returns true' do
@@ -62,7 +62,7 @@ describe DockingStation do
     it '#release_bike returns a bike object' do
       expect(@d.release_bike.class).to eq(Bike)
     end
-    
+
     it '#release_bike returns a working bike' do
 		  expect(@d.release_bike.working?).to eq true
 	  end
