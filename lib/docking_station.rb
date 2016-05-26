@@ -20,11 +20,13 @@ class DockingStation
 	end
 	
 	def dock(bikes)
+    bikes = [bikes].flatten    
+
     if @full
       raise "Station full."
     elsif bikes == []
       raise "No bikes in the input array"
-    elsif (@docked_bikes.length + bikes.length) <= @capacity 
+    elsif n_of_input_bikes_small_enough?(bikes)
        (@docked_bikes << bikes).flatten!
        @full = true if @docked_bikes.length == @capacity
     else   
@@ -39,4 +41,11 @@ class DockingStation
       false
     end
 	end
+
+private
+
+  def n_of_input_bikes_small_enough?(bikes)
+    (@docked_bikes.length + bikes.length) <= @capacity
+  end
+
 end

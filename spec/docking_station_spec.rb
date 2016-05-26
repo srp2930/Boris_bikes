@@ -35,6 +35,10 @@ describe DockingStation do
     it '#dock accepts an array of bikes' do
       expect{@d.dock([Bike.new, Bike.new])}.not_to raise_error(Exception) 
     end 
+    
+    it '#dock accepts a bike object' do
+      expect{@d.dock(Bike.new)}.not_to raise_error(Exception) 
+    end
   end
 
   context 'When dock is full' do
