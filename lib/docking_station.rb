@@ -12,7 +12,9 @@ class DockingStation
 	def release_bike
 		if @docked_bikes == []
 			raise "No bikes available."
-		else
+		elsif @docked_bikes.last.broken == true
+      raise 'Bike is broken!'
+    else
       @docked_bikes.pop
 		end
 	end

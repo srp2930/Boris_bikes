@@ -90,6 +90,17 @@ describe DockingStation do
       it '#docked_bikes contains empty array' do
         expect(d.docked_bikes).to eq([])
       end
-
   end
+
+  context 'When dock holds a broken bike' do
+    b = Bike.new
+    b.broken = true
+    d = DockingStation.new 
+    d.dock(b)
+      
+    it 'should not release a broken bike' do
+      expect{d.release_bike}.to raise_error('Bike is broken!')
+    end
+  end
+
 end
