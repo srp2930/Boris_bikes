@@ -14,24 +14,24 @@ class DockingStation
   def dock(bike)
     	#docked? == true
     fail 'Error: Docking Station Full' if full?
-  	@bikes << bike
+  	bikes << bike
   end
 
   def release_bike
     	#Bike.new if empty_bikes == false
     fail 'Error. No bikes available' if empty?
     fail 'ERROR: BIKE IS BROKEN' if bikes.last.broken?
-    @bikes.pop
+    bikes.pop
   end
 
   private
 
   def full?
-    @bikes.count >= capacity
+    bikes.count >= capacity
   end
 
   def empty?
-    @bikes.empty?
+    bikes.empty?
   end
 end
 
